@@ -1,0 +1,14 @@
+---
+# install httpd packages
+- name: WEB Install httpd and php/php-mysql
+  yum: name={{ item }} state=present
+  with_items:
+   - httpd
+   - php
+   - php-mysql
+
+- include: wordpress.yml
+
+- name: WEB http service state
+  service: name={{ web_service }} state=started enabled=yes
+

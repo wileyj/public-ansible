@@ -1,0 +1,15 @@
+{
+    "Live DB"      : "subnet-e5505dcd",
+    "QA Bastion"   : "subnet-f96865d1",
+    "QA DB"        : "subnet-59535e71",
+    "Live System"  : "subnet-be535e96",
+    "Live Web"     : "subnet-9c505db4",
+    "QA Web"       : "subnet-41535e69",
+    "Dev Web"      : "subnet-6f535e47",
+    "Dev Bastion"  : "subnet-e56865cd",
+    "QA System"    : "subnet-b7535e9f",
+    "Live Public"  : "subnet-925a4bba",
+    "Live Bastion" : "subnet-966865be",
+    "Dev DB"       : "subnet-74535e5c",
+    "Dev System"   : "subnet-b1535e99"
+}

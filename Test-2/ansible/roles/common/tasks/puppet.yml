@@ -1,0 +1,9 @@
+---
+# placeholder for puppet manifests, not publicly available today. 
+- git: repo=https://github.com/wileyj/public-puppet
+       dest=/var/tmp/puppet
+# configure cron to exec puppet, since we're not using a puppetmaster
+- cron: name="schedule puppet exec" minute="*/10" 
+        user="root" job="cd /var/tmp/puppet-masterless && git fetch origin; /usr/bin/puppet apply -dv --trace"
+        cron_file=puppet.cron
+

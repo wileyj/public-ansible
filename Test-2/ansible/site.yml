@@ -1,0 +1,10 @@
+---
+- name: provision webapp using cloudformation
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - cloudformation
+
+- include: dbservers.yml
+- include: webservers.yml

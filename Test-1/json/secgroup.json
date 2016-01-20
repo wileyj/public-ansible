@@ -1,0 +1,14 @@
+{
+    "ro-cj-gw"             : "sg-7e446b1b",
+    "Live DB"              : "sg-4a1f5f2f",
+    "Monitoring"           : "sg-1cc36e76",
+    "Default-Environment"  : "sg-0ce94566",
+    "Live NAT"             : "sg-6f7f230a",
+    "Dev Web"              : "sg-d61f5fb3",
+    "Dev Bastion"          : "sg-0c95bf69",
+    "Live Web"             : "sg-a71e5ec2",
+    "conditiontracker-env" : "sg-e64bf88c",
+    "Live LDAP"            : "sg-5e3b673b",
+    "Live Bastion"         : "sg-f6e1a293",
+    "Dev DB"               : "sg-5695bf33"
+}

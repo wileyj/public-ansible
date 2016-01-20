@@ -1,0 +1,25 @@
+---
+# This role will install MySQL and create db user and give permissions.
+- name: DB Install Mysql package
+  yum: name={{ item }} state=present
+  with_items:
+    - mysql
+    - mysql-server
+    - mysql-devel
+    - mysql-libs
+    - php-mysql
+    - MySQL-python
+
+- name: DB Create Mysql configuration file
+  template: src=roles/db/templates/my.cnf.j2 dest=/etc/my.cnf
+  notify: 
+  - restart mysql
+
+- name: DB Start Mysql Service
+  service: name={{ db_service }} state=started enabled=true
+
+- name: DB Create Application Database
+  mysql_db: name={{ db_name }} state=present
+
+- name: DB Create Application DB User
+  mysql_user: name={{ db_user }} password={{ db_pass }} priv=*.*:ALL host='%' state=present

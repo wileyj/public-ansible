@@ -1,0 +1,10 @@
+---
+- name: Configure db host
+  hosts: dbservers
+  sudo: yes
+  remote_user: ec2-user
+  gather_facts: true
+  user: root
+  roles:
+    - db
+    - common

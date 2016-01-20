@@ -1,0 +1,11 @@
+<VirtualHost *:80>
+	ProxyPass         /  http://<%= @servername %>:<%= @jenkins_port %>/
+  	ProxyPassReverse  /  http://<%= @servername %>:<%= @jenkins_port %>/
+  	ProxyRequests     Off
+	SetOutputFilter INFLATE;proxy-html;DEFLATE
+	SetEnv proxy-nokeepalive 1
+  	<Proxy http://<%= @servername %>:<%= @jenkins_port %>/>
+    		Order deny,allow
+    		Allow from all
+  	</Proxy>
+</VirtualHost>

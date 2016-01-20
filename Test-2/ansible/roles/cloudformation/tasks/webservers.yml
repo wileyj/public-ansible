@@ -1,0 +1,38 @@
+- name: Create WEB Host from cloudformation template
+  action: cloudformation
+    stack_name="{{ web_stack }}"
+    state=present
+    region={{ region }} 
+    disable_rollback=true
+    template=roles/cloudformation/files/template.json
+  args:
+    template_parameters:
+      KeyName: "{{ key_name }}"
+      InstanceType: "{{ web_instance_type }}"
+      Environment: "{{ environment }}"
+      DBRootPassword: "{{ db_pass }}"
+      DBUser: "{{ db_user }}"
+      DBHost: "{{ db_hostname }}"
+      DBName: "{{ db_name }}"
+      HostName: "{{  web_hostname}}"
+      ServicePort: "{{ web_service_port }}"
+      SourceIP: "{{ source_ip }}"
+      ServiceSource: "{{ service_source }}"
+    tags:
+      HostName: "{{ web_hostname }}"
+      Stack: "{{ web_stack }}"
+  register: stack
+
+- name: show WEB Host cloudformation outputs
+  debug: msg="CloudFormation stack_outputs - {{ stack.stack_outputs }}"
+  debug: msg="InstanceID - {{ stack.stack_outputs.InstanceId }}"
+  debug: msg="PrivateIP - {{ stack.stack_outputs.PrivateIp }}"
+  debug: msg="PublicDNS - {{ stack.stack_outputs.PublicDNS }}"
+
+- name: Add WEB Host to dbservers host group
+  local_action: add_host hostname={{ stack.stack_outputs.PublicDNS }} groupname=webservers
+  with_items: stack.stack_outputs.InstanceId 
+
+#- name: Wait for WEB Host SSH to come up
+#  local_action: wait_for host={{ stack.stack_outputs.PublicDNS }} port=22 delay=60 timeout=320 state=started
+#  with_items: stack.stack_outputs.InstanceId

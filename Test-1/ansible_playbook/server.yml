@@ -1,0 +1,9 @@
+---
+- name: Configure web host
+  hosts: launched 
+  sudo: yes
+  remote_user: "{{ ssh_user }}"
+  gather_facts: true
+  user: root
+  roles:
+    - common

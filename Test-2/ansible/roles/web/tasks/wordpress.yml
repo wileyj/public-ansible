@@ -1,0 +1,20 @@
+---
+- name: WP Download Wordpress
+  get_url: url=http://wordpress.org/latest.tar.gz dest={{web_root }}/latest.tar.gz validate_certs=no
+
+- name: WP Extract archive
+  command: chdir={{ web_root }} /bin/tar xvf latest.tar.gz creates={{ wp_root }}
+
+- name: WP Add wordpress group
+  group: name={{ wp_group }}
+
+- name: WP Add wordpress user
+  user: name={{ wp_user }} group={{ wp_group }} home={{ wp_root }}
+
+- name: WP Fetch random salts for Wordpress config
+  local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
+  register: "wp_salt"
+  sudo: no
+
+- name: WP create wp config file
+  template: src=wp_config.php.j2 dest=/var/www/html/wordpress/wp-config.php owner=root group=root mode=0644

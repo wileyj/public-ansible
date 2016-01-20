@@ -1,0 +1,63 @@
+{
+    "AWSTemplateFormatVersion" : "2010-09-09",
+    "Description" : "VPC ec2 template",
+    "Parameters" : {
+        "KeyName" : {
+            "Description" : "Name of and existing EC2 KeyPair to enable SSH access to the instance",
+            "Type" : "String"
+        },
+        "BaseImage": {
+            "Description":"Image id",
+            "Type":"String"
+        },
+        "InstanceType": {
+            "Description":"AMI Type",
+            "Type":"String"
+        },
+        "SecurityGroupId": {
+          "Type" : "String",
+          "Description" : "SecurityGroup to use"
+        }
+    },
+    "Resources" : {
+        "Ec2Instance" : {
+            "Type" : "AWS::EC2::Instance",
+            "Metadata" : {
+            "Comment1" : "install puppet and git",
+            "AWS::CloudFormation::Init" : {
+                "config" : {
+                    "packages" : {
+                        "puppet" : [],
+                        "git"    : []
+                    }
+                }
+            },
+            "Properties" : {
+                "ImageId" : { "Ref" : "BaseImage" },
+		"InstanceType"   : { "Ref" : "InstanceType" },
+                "SecurityGroupIds" : [{ "Ref" : "SecurityGroupId" }],
+                "KeyName" : { "Ref" : "KeyName" },
+                "UserData" : { "Fn::Base64" : { "Fn::Join" : ["", [
+                    "#!/bin/bash -v\n",
+                    "curl https://gitrepo/083630e678ba35b2b778778766270afcbeb67ce3/puppet-bootstrap.sh | bash\n",
+                    "# If all went well, signal success\n",
+                    "cfn-signal -e $? -r 'Puppet installed and run'\n"
+                ]]}}
+            }
+        }
+    },
+    "Outputs" : {
+        "InstanceId" : {
+            "Value" : { "Ref" : "Ec2Instance" },
+            "Description" : "ID of instance"
+        },
+        "InstanceIPAddress" : {
+            "Value" : { "Ref" : "IPAddress" },
+            "Description" : "EIP of instance"
+        },
+        "SecurityGroupId" : {
+            "Value" : { "Ref" : "SecurityGroupId" },
+            "Description" : "Security Group of instance"
+        }
+    }
+}

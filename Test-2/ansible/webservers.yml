@@ -1,0 +1,10 @@
+---
+- name: Configure web host
+  hosts: webservers
+  sudo: yes
+  remote_user: ec2-user
+  gather_facts: true
+  user: root
+  roles:
+    - web
+    - common

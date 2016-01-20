@@ -1,0 +1,28 @@
+---
+db_stack: dbstack
+web_stack: webstack
+key_name: key
+ssh_user: ec2-user
+region: us-east-1
+keypair: aws-master
+environment: stage
+db_hostname: test-mysql-001
+db_service: mysqld
+db_service_port: 3306
+db_user: root
+db_pass: password
+db_instance_type: t1.micro
+db_name: test
+db_json: mysql_template.json
+web_hostname: test-apache-001
+web_iface: '{{ ansible_default_ipv4.interface }}'
+web_service: httpd
+web_service_port: 80
+web_instance_type: t1.micro
+web_json: apache_template.json
+web_root: /var/www/html
+wp_root: /var/www/html/wordpress
+wp_user: apache
+wp_group: apache
+service_source: 0.0.0.0/0
+source_ip: 2.2.2.2/32

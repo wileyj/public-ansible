@@ -1,0 +1,12 @@
+---
+- name: download puppet bootstrap file
+  get_url: url=https://raw.githubusercontent.com/wileyj/public-puppet/master/scripts/user-data-cron.sh dest=/var/tmp/puppet-bootstrap.sh mode=0755
+
+- name: bootstrapping puppet
+  shell: /bin/sh /var/tmp/puppet-bootstrap.sh
+
+# placeholder for puppet manifests, not publicly available today. 
+- git: repo=https://github.com/wileyj/public-puppet
+       dest=/etc/puppetlabs
+
+

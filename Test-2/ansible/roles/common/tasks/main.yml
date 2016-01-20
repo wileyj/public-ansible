@@ -1,0 +1,33 @@
+---
+# create yum repos
+- name: COMMON Create the repository for EPEL
+  copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo
+
+- name: COMMON Create the GPG key for EPEL
+  copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg
+
+- name: COMMON Create the repo for local packages
+  copy: src=local.repo dest=/etc/yum.repos.d/local.repo
+
+# install common packages
+- name: COMMON Install Packages
+  yum: name={{ item }} state=present
+  with_items:
+    - yum-plugin-priorities
+    - git
+    - ntp
+
+# configure ntp
+- name: COMMON Configure ntp file
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+  tags: ntp
+  notify: restart ntp
+
+- name: COMMON Start the ntp service
+  service: name=ntpd state=started enabled=true
+  tags: ntp
+
+- name: COMMON setup hosts file
+  action: template src=hosts.j2 dest=/etc/hosts
+
+- include: puppet.yml

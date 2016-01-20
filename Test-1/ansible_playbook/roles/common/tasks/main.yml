@@ -1,0 +1,5 @@
+---
+- include: files.yml
+- include: yum.yml
+- include: services.yml
+- include: puppet.yml

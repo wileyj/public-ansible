@@ -1,0 +1,27 @@
+[local-x86_64]
+name=local - x86_64
+baseurl=http://yumrepo/local/x86_64
+gpgcheck=0
+priority=1
+enabled=1
+
+[local-noarch]
+name=local - noarch
+baseurl=http://yumrepo/local/noarch
+gpgcheck=0
+priority=1
+enabled=1
+
+[centos-x86_64]
+name=centos 6.5 - x86_64
+baseurl=http://yumrepo/centos/6.5/x86_64
+gpgcheck=0
+priority=2
+enabled=1
+
+[centos-noarch]
+name=centos 6.5 - noarch
+baseurl=http://yumrepo/centos/6.5/noarch
+gpgcheck=0
+priority=2
+enabled=1

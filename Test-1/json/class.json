@@ -1,0 +1,8 @@
+{
+	"Apache"     : "Apache",
+	"DB"         : "DB",
+	"Default"    : "Default",
+	"Java"       : "Java",
+	"Monitoring" : "Monitoring",
+	"Php"        : "Php"
+}

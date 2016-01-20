@@ -1,0 +1,14 @@
+---
+ssh_user: ansible
+aws_keyname: key
+aws_environment: vpc-123456
+aws_hostname: platform-test-002.p.use1.local.com
+aws_instance_type: m3.medium
+aws_security_group: subnet-123456
+#aws_ami: ami-asdf1234
+aws_ami: ami-asdf1234
+aws_region: us-east-1
+vpc_subnet: subnet-123466 
+vpc: vpc-123456
+public_ip_bool: no
+instance_count: 1
